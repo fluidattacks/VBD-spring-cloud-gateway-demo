@@ -2,6 +2,7 @@ package com.api.gateway;
 
 import com.api.gateway.filters.IpFilter;
 import com.api.gateway.filters.IpFilter.Config;
+import com.api.gateway.utils.IpUtils;
 import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,8 +25,8 @@ public class DemoApplication {
 
 	@Bean(name = "userRemoteAddressResolver")
 	public KeyResolver userKeyResolver() {
-		return exchange ->
-			 Mono.just(exchange.getRequest().getRemoteAddress().getAddress().getHostAddress());
+		// key clients by the same address the audit log records for them
+		return exchange -> Mono.just(IpUtils.getRealIp(exchange.getRequest()));
 	}
 
 	@Bean

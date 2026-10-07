@@ -42,6 +42,12 @@ public class DemoApplication {
 									 )
 									 .uri("http://httpbin.org:80"))
 						
+						// lightweight alias kept for the mobile clients
+						.route(p -> p.path("/api/v1/headers")
+									 .filters(f -> f.setPath("/headers")
+											 		.addRequestHeader("Hello", "World"))
+									 .uri("http://httpbin.org:80"))
+
 						.route(p -> p.path("/httpbin/cookies")
 										.and()
 										.method(HttpMethod.GET)

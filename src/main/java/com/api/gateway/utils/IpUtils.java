@@ -7,7 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class IpUtils {
-	public static List<String>  WHITE_LISTS = Arrays.asList("localhost", "httpbin.org");
+	// IP literals or CIDR ranges allowed through IpFilter, matched against the connection address
+	public static List<String>  WHITE_LISTS = Arrays.asList("127.0.0.1", "::1", "10.0.0.0/8");
 
 	private static final String X_REAL_IP = "X-Real-IP";
 	private static final String X_FORWARDED_FOR = "X-Forwarded-For";
